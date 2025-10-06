@@ -8,11 +8,12 @@ Kurztitel: prägnant halten; wenn du ein Logo hast, füge es oberhalb ein.
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 -->
 
-Dieses Projekt importiert Rezepte aus **CSV/XLSX**, normalisiert Felder, ergänzt fehlende **Summary/Notes/Keywords** via LLM (OpenRouter), generiert auf Wunsch **Food-Bilder** (fal.ai) und veröffentlicht alles **idempotent** über die **WordPress-REST-API** als **WPRM-Rezepte**.  
+enhanced_recipes_pipeline.py importiert Rezepte aus **CSV/XLSX**, normalisiert Felder, ergänzt fehlende **Summary/Notes/Keywords** via LLM (OpenRouter), generiert auf Wunsch **Food-Bilder** (fal.ai) und veröffentlicht alles **idempotent** über die **WordPress-REST-API** als **WPRM-Rezepte**.  
 Abbildung: *Course → WP-Categories*, *Cuisine + Keywords → WP-Tags*.
 
 > **Minimaler Input genügt:** `title`, `ingredients`, `directions`.
-
+ai_fusion_openrouter_min.py transformiert Rezepte zu **afrikanisch-asiatischen Fusion-Varianten** über OpenRouter und schreibt die Ergebnisse als neue Spalten in eine CSV. Es erwartet **Semikolon-CSV (UTF-8)**.
+> **Minimaler Input genügt:** `title`oder `keywords`.
 ---
 
 ## Inhaltsverzeichnis
@@ -20,12 +21,6 @@ Abbildung: *Course → WP-Categories*, *Cuisine + Keywords → WP-Tags*.
 - [Architektur & Workflow](#architektur--workflow)
 - [Installation](#installation)
 - [CLI/Usage](#cliusage)
-- [Publishing-Modi](#publishing-modi)
-- [Idempotenz & Duplikate](#idempotenz--duplikate)
-- [Fehlerbehandlung & Logs](#fehlerbehandlung--logs)
-- [Sicherheitshinweise](#sicherheitshinweise)
-- [Troubleshooting](#troubleshooting)
-- [Lizenz](#lizenz)
 
 ---
 
@@ -66,11 +61,11 @@ pip install pandas requests python-slugify openpyxl
 
 ## CLI/Usage
 ```bash
-# Minimal: transformieren und als CSV exportieren
-python enhanced_recipes_pipeline.py --in rezepte.csv --csv-out output.csv
+#for enhanced_recipes_pipeline.py
+python ai_fusion_openrouter_min.py test.csv outputest_ai.csv
 
-# Excel-Input (erstes Sheet)
-python enhanced_recipes_pipeline.py --in rezepte.xlsx --csv-out output.csv
+#for enhanced_recipes_pipeline.py
+python enhanced_recipes_pipeline.py --in rezepte.csv --csv-out output.csv
 
 # Excel-Input (Sheet-Name oder Index)
 python enhanced_recipes_pipeline.py --in rezepte.xlsx --sheet "Daten" --csv-out output.csv
